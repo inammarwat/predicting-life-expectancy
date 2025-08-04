@@ -1,7 +1,35 @@
 ---
 title: "predicting life expectancy"
+author: "Inam Khan"
+execute:
+  echo: false
+  message: false
+  warning: false
 ---
 
-This is a Quarto website.
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+```{r}
+## Key Insight: The Role of HIV/AIDS
+
+#| label: fig-life-hiv
+#| fig-cap: "Countries with higher HIV/AIDS prevalence tend to have significantly lower life expectancy."
+
+
+# Assuming df_clean is your cleaned dataset
+df_clean <- read_csv("data/life_expectancy_clean.csv")
+
+df_clean %>%
+  ggplot(aes(x = `HIV/AIDS`, y = `Life expectancy`, color = Status)) +
+  geom_point(alpha = 0.7, size = 2) +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  labs(
+    title = "Impact of HIV/AIDS on Life Expectancy",
+    x = "HIV/AIDS (deaths per 1000 people)",
+    y = "Life Expectancy (years)"
+  ) +
+  theme_minimal(base_size = 14)
+```
