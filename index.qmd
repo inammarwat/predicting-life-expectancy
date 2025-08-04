@@ -10,6 +10,7 @@ execute:
 ```{r}
 library(tidyverse)
 library(ggplot2)
+library(readxl)
 ```
 
 ```{r}
@@ -20,10 +21,10 @@ library(ggplot2)
 
 
 # Assuming df_clean is your cleaned dataset
-df_clean <- read_csv("data/life_expectancy_clean.csv")
+df_clean <- read_excel("data/life_expectancy_cleaned_dataset.xlsx")
 
 df_clean %>%
-  ggplot(aes(x = `HIV/AIDS`, y = `Life expectancy`, color = Status)) +
+  ggplot(aes(x = `HIV/AIDS`, y = `Life_expectancy`, color = Status)) +
   geom_point(alpha = 0.7, size = 2) +
   geom_smooth(method = "lm", se = FALSE, color = "black") +
   labs(
@@ -33,3 +34,6 @@ df_clean %>%
   ) +
   theme_minimal(base_size = 14)
 ```
+
+Life expectancy varies dramatically across countries based on health and socioeconomic conditions. I used a dataset from the World Health Organization (WHO) and United Nations Development Programme (UNDP), made available through Kaggle, containing health and economic indicators from 2000 to 2015 for over 190 countries. After cleaning and standardizing the data, I analyzed how health factors (like disease prevalence and vaccination rates) and economic indicators (like education and GDP) relate to life expectancy. We modeled life expectancy, measured in years, using a linear regression model based on factors such as mortality rates, disease prevalence, access to vaccines, income levels, and education. Among these, HIV/AIDS and adult mortality rates had the strongest negative effects on life expectancy, while higher schooling and income composition were associated with increased longevity.
+

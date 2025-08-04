@@ -1,5 +1,10 @@
 ---
-title: "About"
+title: "About this site"
+format: html
 ---
 
-About this site
+My name is Inam Ullah Khan, a master's student in Data Science at Al-Farabi Kazakh National University. You can find my work on [GitHub](https://github.com/inammarwat), and reach me at [Gmail](inamm911@gmail.com).
+
+This website summarizes my project on predicting life expectancy using global health and socio-economic data. You can explore the full project and code on [this GitHub repository](https://github.com/inammarwat/predicting-life-expectancy/tree/main).
+
+This project was created as a part of [Kane’s Data Science Bootcamp](https://bootcamp.davidkane.info/).

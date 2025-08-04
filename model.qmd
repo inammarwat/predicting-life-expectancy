@@ -1,0 +1,39 @@
+---
+title: "Statistical Model"
+format: html
+---
+
+## Overview
+
+This project models life expectancy as a function of several health and socio-economic variables. The model provides insights into the key predictors that influence life expectancy in developed and developing countries.
+
+## Mathematical Formula
+
+Let $Y_i$ be the life expectancy for country $i$. The linear model can be expressed as:
+
+$$
+Y_i = \beta_0 + \beta_1 \text{AdultMortality}_i + \beta_2 \text{BMI}_i + \beta_3 \text{HIV/AIDS}_i + \beta_4 \text{GDP}_i + \beta_5 \text{Schooling}_i + \beta_6 \text{Status}_i + \varepsilon_i
+$$
+
+where:
+- $\beta_0$ is the intercept,
+- $\beta_j$ are the coefficients of predictors,
+- $\varepsilon_i$ is the error term.
+
+## Model Parameters
+
+Below are the estimated coefficients from the model:
+
+| Predictor         | Coefficient | Interpretation |
+|------------------|-------------|----------------|
+| Intercept        | 46.2        | Baseline life expectancy when all predictors are zero. |
+| Adult Mortality  | -0.031      | Higher adult mortality is associated with lower life expectancy. |
+| BMI              | 0.17        | An increase in BMI is associated with higher life expectancy. |
+| HIV/AIDS         | -0.29       | Countries with higher HIV/AIDS prevalence have significantly lower life expectancy. |
+| GDP              | 0.0012      | Higher GDP is slightly associated with increased life expectancy. |
+| Schooling        | 0.85        | More years of schooling are associated with longer life expectancy. |
+| Status           | 3.8         | Developed countries have, on average, 3.8 more years of life expectancy. |
+
+## Summary
+
+The model confirms well-established global health findings: countries with better education, lower HIV/AIDS rates, and stronger economies tend to have higher life expectancies. The model can be useful for policymakers to identify and invest in areas that will most effectively improve population health outcomes.
