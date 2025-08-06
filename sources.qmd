@@ -7,7 +7,7 @@ bibliography: []
 ## Data Source
 
 - **Dataset**: *Life‑Expectancy‑Analysis* by Naila Srivastava, Kaggle  
-  A dataset offering a comprehensive view of health and socio‑economic indicators affecting life expectancy across countries and years :contentReference[oaicite:1]{index=1}
+  A dataset offering a comprehensive view of health and socio‑economic indicators affecting life expectancy across countries and years :contentReference
 
 - **Link**:  "https://www.kaggle.com/datasets/nailasrivastava/life-expectancy-analysis"
 
