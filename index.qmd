@@ -24,7 +24,7 @@ data <- read_excel("C:/Users/DELL/Desktop/life_expectancy_cleaned_dataset.xlsx")
 ```{r}
 # message : false
 model <- linear_reg() |>
-  fit(Life_expectancy ~ Income_composition_of_resources + Schooling + Alcohol + `HIV/AIDS`, data = data)
+  fit(Life_expectancy ~ Income_composition_of_resources + Schooling + GDP + `HIV/AIDS`, data = data)
 ```
 
 ```{r}
