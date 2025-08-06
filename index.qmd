@@ -33,7 +33,7 @@ library(tidyverse)
 library(broom)
 
 # Fit the multiple linear regression model
-model <- lm(Life_expectancy ~ `HIV/AIDS` + Adult_Mortality + Schooling + Income_composition_of_resources, data = data)
+model <- lm(Life_expectancy ~ `HIV/AIDS` + Adult_Mortality + GDP + Schooling + Income_composition_of_resources, data = data)
 
 # Tidy the model for plotting
 tidy_model <- tidy(model)
@@ -53,6 +53,7 @@ tidy_model %>%
   ) +
   theme_minimal()
 ```
+
 
 ```{r}
 library(tidyverse)
