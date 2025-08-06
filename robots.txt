@@ -1,0 +1,1 @@
+Sitemap: https://inammarwat.github.io/predicting-life-expectancy/sitemap.xml

@@ -1,0 +1,65 @@
+[
+  {
+    "objectID": "sources.html",
+    "href": "sources.html",
+    "title": "Sources",
+    "section": "",
+    "text": "Dataset: Life‑Expectancy‑Analysis by Naila Srivastava, Kaggle\nA dataset offering a comprehensive view of health and socio‑economic indicators affecting life expectancy across countries and years :contentReferenceoaicite:1\nLink: “https://www.kaggle.com/datasets/nailasrivastava/life-expectancy-analysis”\n  [Kaggle – Life‑Expectancy‑Analysis]  \n  (Direct download available; last updated about 23 days ago at the time of access)"
+  },
+  {
+    "objectID": "sources.html#data-source",
+    "href": "sources.html#data-source",
+    "title": "Sources",
+    "section": "",
+    "text": "Dataset: Life‑Expectancy‑Analysis by Naila Srivastava, Kaggle\nA dataset offering a comprehensive view of health and socio‑economic indicators affecting life expectancy across countries and years :contentReferenceoaicite:1\nLink: “https://www.kaggle.com/datasets/nailasrivastava/life-expectancy-analysis”\n  [Kaggle – Life‑Expectancy‑Analysis]  \n  (Direct download available; last updated about 23 days ago at the time of access)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Predicting Life Expectancy Around the World",
+    "section": "",
+    "text": "Life expectancy varies significantly across countries due to differences in health and socioeconomic conditions. I used a dataset compiled by the World Health Organization (WHO) and the United Nations Development Programme (UNDP), available on Kaggle, which includes health and economic indicators from 2000 to 2015 for over 190 countries. After cleaning and standardizing the data, I explored how health factors (such as disease prevalence and vaccination rates) and economic indicators (such as education and GDP) relate to life expectancy.\nI built a multiple linear regression model to predict life expectancy, measured in years, using predictors including mortality rates, disease prevalence, access to vaccines, income levels, and education. The analysis revealed that HIV/AIDS and adult mortality rates had the strongest negative impacts on life expectancy, while higher levels of schooling and income composition were positively associated with longer life expectancy."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About this site",
+    "section": "",
+    "text": "My name is Inam Ullah Khan, a master’s student in Data Science at Al-Farabi Kazakh National University. You can find my work on GitHub, and reach me at Gmail.\nThis website summarizes my project on predicting life expectancy using global health and socio-economic data. You can explore the full project and code on this GitHub repository.\nThis project was created as a part of Kane’s Data Science Bootcamp."
+  },
+  {
+    "objectID": "model.html",
+    "href": "model.html",
+    "title": "Statistical Model",
+    "section": "",
+    "text": "This project models life expectancy as a function of several health and socio-economic variables. The model provides insights into the key predictors that influence life expectancy in developed and developing countries."
+  },
+  {
+    "objectID": "model.html#overview",
+    "href": "model.html#overview",
+    "title": "Statistical Model",
+    "section": "",
+    "text": "This project models life expectancy as a function of several health and socio-economic variables. The model provides insights into the key predictors that influence life expectancy in developed and developing countries."
+  },
+  {
+    "objectID": "model.html#mathematical-formula",
+    "href": "model.html#mathematical-formula",
+    "title": "Statistical Model",
+    "section": "Mathematical Formula",
+    "text": "Mathematical Formula\nLet \\(Y_i\\) be the life expectancy for country \\(i\\). The linear model can be expressed as:\n\\[\nY_i = \\beta_0 + \\beta_1 \\text{AdultMortality}_i + \\beta_2 \\text{BMI}_i + \\beta_3 \\text{HIV/AIDS}_i + \\beta_4 \\text{GDP}_i + \\beta_5 \\text{Schooling}_i + \\beta_6 \\text{Status}_i + \\varepsilon_i\n\\]\nwhere: - \\(\\beta_0\\) is the intercept, - \\(\\beta_j\\) are the coefficients of predictors, - \\(\\varepsilon_i\\) is the error term."
+  },
+  {
+    "objectID": "model.html#model-parameters",
+    "href": "model.html#model-parameters",
+    "title": "Statistical Model",
+    "section": "Model Parameters",
+    "text": "Model Parameters\nBelow are the estimated coefficients from the model:\n\n\n\n\n\n\n\n\nPredictor\nCoefficient\nInterpretation\n\n\n\n\nIntercept\n46.2\nBaseline life expectancy when all predictors are zero.\n\n\nAdult Mortality\n-0.031\nHigher adult mortality is associated with lower life expectancy.\n\n\nBMI\n0.17\nAn increase in BMI is associated with higher life expectancy.\n\n\nHIV/AIDS\n-0.29\nCountries with higher HIV/AIDS prevalence have significantly lower life expectancy.\n\n\nGDP\n0.0012\nHigher GDP is slightly associated with increased life expectancy.\n\n\nSchooling\n0.85\nMore years of schooling are associated with longer life expectancy.\n\n\nStatus\n3.8\nDeveloped countries have, on average, 3.8 more years of life expectancy."
+  },
+  {
+    "objectID": "model.html#summary",
+    "href": "model.html#summary",
+    "title": "Statistical Model",
+    "section": "Summary",
+    "text": "Summary\nThe model confirms well-established global health findings: countries with better education, lower HIV/AIDS rates, and stronger economies tend to have higher life expectancies. The model can be useful for policymakers to identify and invest in areas that will most effectively improve population health outcomes."
+  }
+]
