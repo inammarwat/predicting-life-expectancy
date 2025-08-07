@@ -59,7 +59,11 @@ Below are the estimated coefficients of the model, including 95% confidence inte
 
 ---
 
-## Coefficient Plot
+## Predictor Relationships
+
+To better understand how each predictor relates to life expectancy individually, the following faceted scatterplots show the relationships between life expectancy and each variable. 
+
+Each panel includes a linear trend line to illustrate the direction and strength of association:
 
 ```{r}
 library(tidyverse)
