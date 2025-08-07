@@ -1,6 +1,10 @@
 ---
 title: "Model"
 format: html
+execute:
+  echo: false
+  message: false
+  warning: false
 ---
 
 ## Model Specification
@@ -61,32 +65,42 @@ Below are the estimated coefficients of the model, including 95% confidence inte
 
 ## Predictor Relationships
 
+```{r}
+# message : false
+# warning : false
+library(tidyverse)
+library(readxl)
+
+data <- read_excel("data/life_expectancy_cleaned_dataset.xlsx")
+
+data <- data |> 
+  mutate(log_gdp = log(GDP + 1)) |> 
+  select(Life_expectancy, Adult_Mortality, `Income_composition_of_resources`, `HIV/AIDS`, Schooling, log_gdp) |> 
+  rename(`Income Composition` = `Income_composition_of_resources`,
+         `HIV/AIDS` = `HIV/AIDS`,
+         `log(GDP + 1)` = log_gdp)
+
+# Reshape for faceting
+plot_data <- data |> 
+  pivot_longer(cols = -Life_expectancy, names_to = "Predictor", values_to = "Value")
+
+ggplot(plot_data, aes(x = Value, y = Life_expectancy)) +
+  geom_point(alpha = 0.4, size = 1.5) +
+  geom_smooth(method = "lm", se = FALSE, color = "blue", linewidth = 1) +
+  facet_wrap(~ Predictor, scales = "free", ncol = 2) +
+  labs(
+    title = "Relationships Between Predictors and Life Expectancy",
+    subtitle = "Linear trend lines show direction and strength of association",
+    x = NULL, y = "Life Expectancy"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 13),
+    strip.text = element_text(size = 11)
+  )
+```
+
 To better understand how each predictor relates to life expectancy individually, the following faceted scatterplots show the relationships between life expectancy and each variable. 
 
 Each panel includes a linear trend line to illustrate the direction and strength of association:
-
-```{r}
-library(tidyverse)
-library(broom)
-
-# Refit model if not already done
-model <- lm(Life_expectancy ~ Adult_Mortality + Income_composition_of_resources +
-              HIV_AIDS + Schooling + log(GDP + 1), data = data)
-
-# Create tidy model with confidence intervals
-tidy_model <- tidy(model, conf.int = TRUE)
-
-# Plot coefficients
-tidy_model |>
-  filter(term != "(Intercept)") |>
-  ggplot(aes(x = estimate, y = fct_reorder(term, estimate))) +
-  geom_point(size = 3) +
-  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
-  labs(
-    title = "Model Coefficients for Predicting Life Expectancy",
-    subtitle = "95% Confidence Intervals shown",
-    x = "Estimate",
-    y = NULL
-  ) +
-  theme_minimal(base_size = 16)
-```
