@@ -5,7 +5,7 @@ format: html
 
 ## Data Source
 
-- **Dataset**: *Life Expectancy Analysis*  
+- **Dataset**: *Life Expectany Analysis *  
   - **Author**: Naila Srivastava  
   - **Publisher**: Kaggle  
   - **URL**: [https://www.kaggle.com/datasets/nailasrivastava/life-expectancy-analysis](https://www.kaggle.com/datasets/nailasrivastava/life-expectancy-analysis)  

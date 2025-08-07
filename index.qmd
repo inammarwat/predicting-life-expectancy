@@ -8,96 +8,91 @@ execute:
 ---
 
 ```{r}
-library(tidyverse)
-library(tidymodels) 
-library(ggplot2)
-library(readxl)
-library(plotly)
-library(dplyr)
+# Load required libraries
+library(tidyverse)  # Data manipulation and visualization
+library(broom)      # Tidy model outputs
+library(tidymodels) # Modeling framework
+library(ggplot2)    # Data visualization
+library(readxl)     # Read Excel files
+library(plotly)     # Interactive plots
+library(dplyr)      # Data wrangling
 ```
 
 ```{r}
-data <- read_excel("C:/Users/DELL/Desktop/life_expectancy_cleaned_dataset.xlsx")
-
-```
-
-```{r}
-# message : false
-model <- linear_reg() |>
-  fit(Life_expectancy ~ Income_composition_of_resources + Schooling + GDP + `HIV/AIDS`, data = data)
-```
-
-```{r}
-# Load libraries
-library(tidyverse)
-library(broom)
-
-# Fit the multiple linear regression model
-model <- lm(Life_expectancy ~ `HIV/AIDS` + Adult_Mortality + GDP + Schooling + Income_composition_of_resources, data = data)
-
-# Tidy the model for plotting
-tidy_model <- tidy(model)
-
-# Create coefficient plot
-tidy_model %>%
-  filter(term != "(Intercept)") %>%  # Remove intercept for clarity
-  ggplot(aes(x = reorder(term, estimate), y = estimate)) +
-  geom_col(fill = "steelblue") +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
-  coord_flip() +
-  labs(
-    title = "Impact of Key Health and Socioeconomic Factors on Life Expectancy",
-    subtitle = "Positive values indicate factors increasing life expectancy; negative values decrease it",
-    x = "Predictor",
-    y = "Estimated Effect on Life Expectancy (years)"
-  ) +
-  theme_minimal()
+# Read cleaned life expectancy dataset from Excel file
+data <- read_excel("data/life_expectancy_cleaned_dataset.xlsx")
 ```
 
 
 ```{r}
-library(tidyverse)
+# Fit a multiple linear regression model to predict life expectancy
+# Include key predictors: adult mortality, income composition, HIV/AIDS prevalence, schooling, and GDP (log-transformed)
+model <- lm(Life_expectancy ~ 
+              Adult_Mortality + 
+              Income_composition_of_resources + 
+              `HIV/AIDS` + 
+              Schooling + 
+              log(GDP + 1),  # Log-transform GDP to reduce skewness
+            data = data)
+tidy(model, conf.int = TRUE)
+```
 
-# Rename variables for clarity
-life <- data %>%
-  rename(
-    LifeExpectancy = Life_expectancy,
-    AdultMortality = Adult_Mortality,
-    HIV_AIDS = `HIV/AIDS`,
-    IncomeComp = Income_composition_of_resources,
-    Schooling = Schooling,
-    GDP = GDP
+
+```{r}
+# Visualize the effect of key predictors on life expectancy using regression estimates
+
+tidy_model <- tidy(model) %>% 
+  filter(term != "(Intercept)") %>% 
+  mutate(
+    term = case_when(
+      term == "Adult_Mortality" ~ "Adult Mortality\n(deaths per 1,000)",
+      term == "Income_composition_of_resources" ~ "Income & Resources",
+      term == "HIV/AIDS" ~ "HIV Prevalence\n(% of population)",
+      term == "Schooling" ~ "Education\n(years in school)",
+      term == "log(GDP + 1)" ~ "National Wealth\n(log GDP)",
+      TRUE ~ term
+    ),
+    term = fct_reorder(term, estimate)
   )
 
-# Convert GDP to thousands of dollars for readability
-life <- life %>%
-  mutate(GDP_thousands = GDP / 1000)
-
-# Filter out NA values for main predictors
-life_clean <- life %>%
-  select(LifeExpectancy, AdultMortality, HIV_AIDS, IncomeComp, Schooling, GDP_thousands) %>%
-  drop_na()
-
-# Reshape data for faceted plotting
-life_long <- life_clean %>%
-  pivot_longer(cols = -LifeExpectancy, names_to = "Predictor", values_to = "Value")
-
-# Create the faceted scatterplot
-ggplot(life_long, aes(x = Value, y = LifeExpectancy)) +
-  geom_point(alpha = 0.5, color = "steelblue") +
-  geom_smooth(method = "lm", color = "darkred", se = FALSE) +
-  facet_wrap(~ Predictor, scales = "free_x") +
-  labs(
-    title = "How Socioeconomic and Health Factors Affect Life Expectancy",
-    subtitle = "Higher education, income, and GDP predict longer life expectancy, while HIV/AIDS and adult mortality reduce it.",
-    x = NULL,
-    y = "Life Expectancy (Years)"
+# Plot
+ggplot(tidy_model, aes(x = term, y = estimate)) +
+  geom_col(aes(fill = estimate > 0), width = 0.6, alpha = 0.8) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "black", linewidth = 0.5) +
+  scale_fill_manual(values = c("TRUE" = "#1f77b4", "FALSE" = "#d62728"), guide = FALSE) +
+  scale_y_continuous(
+    limits = c(-max(abs(tidy_model$estimate)) * 1.2, max(abs(tidy_model$estimate)) * 1.2),
+    breaks = scales::pretty_breaks(n = 6),
+    labels = function(x) sprintf("%+.1f years", x)  # Add "+/-" and unit
   ) +
-  theme_minimal(base_size = 14)
+  coord_flip() +
+  labs(
+    title = "Impact of Health and Socioeconomic Factors on Life Expectancy",
+    subtitle = "Education and income raise lifespan, while HIV and adult mortality shorten it",
+    x = NULL,
+    y = "Change in Life Expectancy (years)",
+    caption = "Data source: WHO Global Data (2000-2015) | Kaggle"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 18, hjust = 0.5, margin = margin(b = 10)),
+    plot.subtitle = element_text(size = 14, hjust = 0.5, color = "gray40"),
+    axis.text.y = element_text(face = "bold", lineheight = 1.2),
+    axis.text.x = element_text(size = 12),
+    panel.grid.major.y = element_blank(),
+    plot.caption = element_text(color = "gray50", margin = margin(t = 10))
+  ) +
+  geom_text(
+    aes(label = sprintf("%+.2f", estimate)),  # Fixed: Changed "%+.lf" to "%+.1f"
+    hjust = ifelse(tidy_model$estimate > 0, -0.2, 1.2),
+    size = 5,
+    fontface = "bold"
+)
 ```
 
+## Summary
 
-Life expectancy varies significantly across countries due to differences in health and socioeconomic conditions. I used a dataset compiled by the World Health Organization (WHO) and the United Nations Development Programme (UNDP), available on Kaggle, which includes health and economic indicators from 2000 to 2015 for over 190 countries. After cleaning and standardizing the data, I explored how health factors (such as disease prevalence and vaccination rates) and economic indicators (such as education and GDP) relate to life expectancy.
-
-I built a multiple linear regression model to predict life expectancy, measured in years, using predictors including mortality rates, disease prevalence, access to vaccines, income levels, and education. The analysis revealed that HIV/AIDS and adult mortality rates had the strongest negative impacts on life expectancy, while higher levels of schooling and income composition were positively associated with longer life expectancy.
-
+**How do health and socioeconomic factors influence life expectancy globally?**  
+I used data compiled by the World Health Organization and the United Nations Development Programme, covering health and socioeconomic indicators for over 190 countries from 2000 to 2015. After cleaning and standardizing the data, I focused on comparing the effect of economic resources, education levels, and disease prevalence on national life expectancy.  
+I built a multiple linear regression model to predict life expectancy (measured in years), using factors such as adult mortality, HIV/AIDS prevalence, years of schooling, and national income levels. The model showed that higher income composition increased life expectancy by **+10.8 years**, while HIV/AIDS prevalence and adult mortality had negative effects of **−0.44** and **−0.02 years**, respectively.  
+**Income inequality and health interventions can shift life expectancy by more than a decade — and that gap may grow without investment in education and disease prevention.**
