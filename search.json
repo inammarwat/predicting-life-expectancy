@@ -46,7 +46,7 @@
     "href": "model.html#data-generating-mechanism-dgm",
     "title": "Model",
     "section": "Data Generating Mechanism (DGM)",
-    "text": "Data Generating Mechanism (DGM)\nThe estimated equation from the model is:\n\\[\n\\text{Life Expectancy} = 51.16 - 0.02 \\cdot \\text{Adult Mortality} + 10.80 \\cdot \\text{Income/Resources} - 0.44 \\cdot \\text{HIV/AIDS} + 0.99 \\cdot \\text{Schooling} + 0.48 \\cdot \\log(\\text{GDP} + 1) + \\epsilon\n\\]\n\nAdult Mortality is measured per 1,000 people.\nIncome Composition of Resources is on a 0–1 scale.\nHIV/AIDS prevalence is a percentage.\nSchooling is in years of education.\nGDP is transformed using log(GDP + 1) to reduce skewness."
+    "text": "Data Generating Mechanism (DGM)\nThe estimated equation from the model is:\n\\[\n\\text{Life Expectancy} = 51.20 - 0.02 \\cdot \\text{Adult Mortality} + 10.80 \\cdot \\text{Income/Resources} - 0.44 \\cdot \\text{HIV/AIDS} + 0.99 \\cdot \\text{Schooling} + 0.48 \\cdot \\log(\\text{GDP} + 1) + \\epsilon\n\\]\n\nAdult Mortality is measured per 1,000 people.\nIncome Composition of Resources is on a 0–1 scale.\nHIV/AIDS prevalence is a percentage.\nSchooling is in years of education.\nGDP is transformed using log(GDP + 1) to reduce skewness."
   },
   {
     "objectID": "model.html#model-coefficients",
