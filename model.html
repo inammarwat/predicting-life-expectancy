@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Model – predicting life expectancy</title>
+<title>Model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,11 +107,6 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">predicting life expectancy</span>
-    </a>
-  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -151,10 +146,12 @@ window.Quarto = {
    
   <ul>
   <li><a href="#model-specification" id="toc-model-specification" class="nav-link active" data-scroll-target="#model-specification">Model Specification</a></li>
+  <li><a href="#data-generating-mechanism-dgm" id="toc-data-generating-mechanism-dgm" class="nav-link" data-scroll-target="#data-generating-mechanism-dgm">Data Generating Mechanism (DGM)</a></li>
   <li><a href="#model-coefficients" id="toc-model-coefficients" class="nav-link" data-scroll-target="#model-coefficients">Model Coefficients</a>
   <ul class="collapse">
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
   </ul></li>
+  <li><a href="#predictor-relationships" id="toc-predictor-relationships" class="nav-link" data-scroll-target="#predictor-relationships">Predictor Relationships</a></li>
   </ul>
 </nav>
     </div>
@@ -191,6 +188,21 @@ window.Quarto = {
 <ul>
 <li><span class="math inline">\(\beta_0\)</span> is the intercept</li>
 <li><span class="math inline">\(\epsilon\)</span> is the error term</li>
+</ul>
+<hr>
+</section>
+<section id="data-generating-mechanism-dgm" class="level2">
+<h2 class="anchored" data-anchor-id="data-generating-mechanism-dgm">Data Generating Mechanism (DGM)</h2>
+<p>The estimated equation from the model is:</p>
+<p><span class="math display">\[
+\text{Life Expectancy} = 51.16 - 0.02 \cdot \text{Adult Mortality} + 10.80 \cdot \text{Income/Resources} - 0.44 \cdot \text{HIV/AIDS} + 0.99 \cdot \text{Schooling} + 0.48 \cdot \log(\text{GDP} + 1) + \epsilon
+\]</span></p>
+<ul>
+<li><strong>Adult Mortality</strong> is measured per 1,000 people.</li>
+<li><strong>Income Composition of Resources</strong> is on a 0–1 scale.</li>
+<li><strong>HIV/AIDS</strong> prevalence is a percentage.</li>
+<li><strong>Schooling</strong> is in years of education.</li>
+<li><strong>GDP</strong> is transformed using log(GDP + 1) to reduce skewness.</li>
 </ul>
 <hr>
 </section>
@@ -283,9 +295,24 @@ window.Quarto = {
 <li><strong>Schooling</strong>, <strong>Income Composition</strong>, and <strong>GDP</strong> are positively associated with <em>higher</em> life expectancy.</li>
 <li>All predictors are statistically significant at p &lt; 0.001.</li>
 </ul>
-
-
+<hr>
 </section>
+</section>
+<section id="predictor-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="predictor-relationships">Predictor Relationships</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="model_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To better understand how each predictor relates to life expectancy individually, the following faceted scatterplots show the relationships between life expectancy and each variable.</p>
+<p>Each panel includes a linear trend line to illustrate the direction and strength of association:</p>
+
+
 </section>
 
 </main> <!-- /main -->

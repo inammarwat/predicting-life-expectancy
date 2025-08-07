@@ -14,16 +14,9 @@
     "text": "Dataset: Life Expectany Analysis \n\nAuthor: Naila Srivastava\n\nPublisher: Kaggle\n\nURL: https://www.kaggle.com/datasets/nailasrivastava/life-expectancy-analysis\n\nAccessed: August 6, 2025\n\n\nThis dataset provides health and economic indicators for over 190 countries from 2000 to 2015. It is used in this project to analyze factors affecting life expectancy."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Predicting Life Expectancy Around the World",
-    "section": "",
-    "text": "# A tibble: 6 × 7\n  term                 estimate std.error statistic   p.value conf.low conf.high\n  &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)           51.2     0.570        89.7  0          50.0      52.3   \n2 Adult_Mortality       -0.0194  0.000974    -19.9  5.60e- 79  -0.0213   -0.0175\n3 Income_composition_…  10.8     0.851        12.7  3.03e- 35   9.13     12.5   \n4 `HIV/AIDS`            -0.444   0.0186      -23.9  1.46e-108  -0.480    -0.407 \n5 Schooling              0.986   0.0574       17.2  7.46e- 61   0.873     1.10  \n6 log(GDP + 1)           0.479   0.0681        7.03 2.92e- 12   0.345     0.612"
-  },
-  {
     "objectID": "index.html#summary",
     "href": "index.html#summary",
-    "title": "Predicting Life Expectancy Around the World",
+    "title": "Predicting Life Expectancy",
     "section": "Summary",
     "text": "Summary\nHow do health and socioeconomic factors influence life expectancy globally?\nI used data compiled by the World Health Organization and the United Nations Development Programme, covering health and socioeconomic indicators for over 190 countries from 2000 to 2015. After cleaning and standardizing the data, I focused on comparing the effect of economic resources, education levels, and disease prevalence on national life expectancy.\nI built a multiple linear regression model to predict life expectancy (measured in years), using factors such as adult mortality, HIV/AIDS prevalence, years of schooling, and national income levels. The model showed that higher income composition increased life expectancy by +10.8 years, while HIV/AIDS prevalence and adult mortality had negative effects of −0.44 and −0.02 years, respectively.\nIncome inequality and health interventions can shift life expectancy by more than a decade — and that gap may grow without investment in education and disease prevention."
   },
@@ -49,10 +42,24 @@
     "text": "We fit a multiple linear regression model to predict life expectancy based on several key health and socioeconomic indicators.\nThe model is defined as:\n\\[\n\\text{Life Expectancy} = \\beta_0 + \\beta_1 \\cdot \\text{Adult Mortality} + \\beta_2 \\cdot \\text{Income Composition of Resources} + \\beta_3 \\cdot \\text{HIV/AIDS} + \\beta_4 \\cdot \\text{Schooling} + \\beta_5 \\cdot \\log(\\text{GDP} + 1) + \\epsilon\n\\]\nWhere:\n\n\\(\\beta_0\\) is the intercept\n\\(\\epsilon\\) is the error term"
   },
   {
+    "objectID": "model.html#data-generating-mechanism-dgm",
+    "href": "model.html#data-generating-mechanism-dgm",
+    "title": "Model",
+    "section": "Data Generating Mechanism (DGM)",
+    "text": "Data Generating Mechanism (DGM)\nThe estimated equation from the model is:\n\\[\n\\text{Life Expectancy} = 51.16 - 0.02 \\cdot \\text{Adult Mortality} + 10.80 \\cdot \\text{Income/Resources} - 0.44 \\cdot \\text{HIV/AIDS} + 0.99 \\cdot \\text{Schooling} + 0.48 \\cdot \\log(\\text{GDP} + 1) + \\epsilon\n\\]\n\nAdult Mortality is measured per 1,000 people.\nIncome Composition of Resources is on a 0–1 scale.\nHIV/AIDS prevalence is a percentage.\nSchooling is in years of education.\nGDP is transformed using log(GDP + 1) to reduce skewness."
+  },
+  {
     "objectID": "model.html#model-coefficients",
     "href": "model.html#model-coefficients",
     "title": "Model",
     "section": "Model Coefficients",
     "text": "Model Coefficients\nBelow are the estimated coefficients of the model, including 95% confidence intervals:\n\n\n\n\n\n\n\n\n\n\n\n\nTerm\nEstimate\nStd. Error\nt value\np-value\n95% CI (Lower)\n95% CI (Upper)\n\n\n\n\nIntercept\n51.20\n0.57\n89.7\n&lt; 0.001\n50.00\n52.30\n\n\nAdult Mortality\n-0.0194\n0.00097\n-19.9\n&lt; 0.001\n-0.0213\n-0.0175\n\n\nIncome Composition of Resources\n10.80\n0.85\n12.7\n&lt; 0.001\n9.13\n12.50\n\n\nHIV/AIDS\n-0.444\n0.0186\n-23.9\n&lt; 0.001\n-0.480\n-0.407\n\n\nSchooling\n0.986\n0.0574\n17.2\n&lt; 0.001\n0.873\n1.10\n\n\nlog(GDP + 1)\n0.479\n0.0681\n7.03\n&lt; 0.001\n0.345\n0.612\n\n\n\n\n\nInterpretation\n\nAdult Mortality and HIV/AIDS are strongly associated with lower life expectancy.\nSchooling, Income Composition, and GDP are positively associated with higher life expectancy.\nAll predictors are statistically significant at p &lt; 0.001."
+  },
+  {
+    "objectID": "model.html#predictor-relationships",
+    "href": "model.html#predictor-relationships",
+    "title": "Model",
+    "section": "Predictor Relationships",
+    "text": "Predictor Relationships\n\n\n\n\n\n\n\n\n\nTo better understand how each predictor relates to life expectancy individually, the following faceted scatterplots show the relationships between life expectancy and each variable.\nEach panel includes a linear trend line to illustrate the direction and strength of association:"
   }
 ]
