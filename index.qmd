@@ -1,5 +1,5 @@
 ---
-title: "Predicting Life Expectancy Around the World"
+title: "Predicting Life Expectancy"
 author: "Inam Khan"
 execute:
   echo: false
@@ -8,6 +8,7 @@ execute:
 ---
 
 ```{r}
+# message : false
 # Load required libraries
 library(tidyverse)  # Data manipulation and visualization
 library(broom)      # Tidy model outputs
@@ -16,6 +17,8 @@ library(ggplot2)    # Data visualization
 library(readxl)     # Read Excel files
 library(plotly)     # Interactive plots
 library(dplyr)      # Data wrangling
+library(forcats)
+library(ggtext)  # If you want markdown styling
 ```
 
 ```{r}
@@ -34,13 +37,12 @@ model <- lm(Life_expectancy ~
               Schooling + 
               log(GDP + 1),  # Log-transform GDP to reduce skewness
             data = data)
-tidy(model, conf.int = TRUE)
 ```
 
-
-```{r}
+```{r regression-impact-plot, fig.width=11, fig.height=6}
 # Visualize the effect of key predictors on life expectancy using regression estimates
 
+# Prepare tidy_model
 tidy_model <- tidy(model) %>% 
   filter(term != "(Intercept)") %>% 
   mutate(
@@ -57,37 +59,37 @@ tidy_model <- tidy(model) %>%
 
 # Plot
 ggplot(tidy_model, aes(x = term, y = estimate)) +
-  geom_col(aes(fill = estimate > 0), width = 0.6, alpha = 0.8) +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "black", linewidth = 0.5) +
+  geom_col(aes(fill = estimate > 0), width = 0.6, alpha = 0.9) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
   scale_fill_manual(values = c("TRUE" = "#1f77b4", "FALSE" = "#d62728"), guide = FALSE) +
   scale_y_continuous(
     limits = c(-max(abs(tidy_model$estimate)) * 1.2, max(abs(tidy_model$estimate)) * 1.2),
     breaks = scales::pretty_breaks(n = 6),
-    labels = function(x) sprintf("%+.1f years", x)  # Add "+/-" and unit
+    labels = function(x) sprintf("%+.1f years", x)
   ) +
   coord_flip() +
   labs(
     title = "Impact of Health and Socioeconomic Factors on Life Expectancy",
-    subtitle = "Education and income raise lifespan, while HIV and adult mortality shorten it",
+    subtitle = "Education and income increase lifespan, while HIV and adult mortality reduce it",
     x = NULL,
     y = "Change in Life Expectancy (years)",
-    caption = "Data source: WHO Global Data (2000-2015) | Kaggle"
+    caption = "Data source: WHO Global Data (2000–2015) | Kaggle"
   ) +
-  theme_minimal(base_size = 14) +
+  theme_classic(base_size = 14) +
   theme(
-    plot.title = element_text(face = "bold", size = 18, hjust = 0.5, margin = margin(b = 10)),
+    plot.title = element_text(face = "bold", size = 20, hjust = 0.5, margin = margin(b = 8)),
     plot.subtitle = element_text(size = 14, hjust = 0.5, color = "gray40"),
-    axis.text.y = element_text(face = "bold", lineheight = 1.2),
-    axis.text.x = element_text(size = 12),
-    panel.grid.major.y = element_blank(),
-    plot.caption = element_text(color = "gray50", margin = margin(t = 10))
+    axis.text.y = element_text(face = "bold", size = 12),
+    axis.text.x = element_text(size = 11),
+    plot.caption = element_text(color = "gray50", size = 10, margin = margin(t = 10)),
+    plot.margin = margin(t = 25, r = 20, b = 20, l = 20)
   ) +
   geom_text(
-    aes(label = sprintf("%+.2f", estimate)),  # Fixed: Changed "%+.lf" to "%+.1f"
+    aes(label = sprintf("%+.2f", estimate)),
     hjust = ifelse(tidy_model$estimate > 0, -0.2, 1.2),
-    size = 5,
+    size = 4.5,
     fontface = "bold"
-)
+  )
 ```
 
 ## Summary
