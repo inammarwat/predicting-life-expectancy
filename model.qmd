@@ -20,6 +20,22 @@ Where:
 
 ---
 
+## Data Generating Mechanism (DGM)
+
+The estimated equation from the model is:
+
+$$
+\text{Life Expectancy} = 51.16 - 0.02 \cdot \text{Adult Mortality} + 10.80 \cdot \text{Income/Resources} - 0.44 \cdot \text{HIV/AIDS} + 0.99 \cdot \text{Schooling} + 0.48 \cdot \log(\text{GDP} + 1) + \epsilon
+$$
+
+- **Adult Mortality** is measured per 1,000 people.
+- **Income Composition of Resources** is on a 0–1 scale.
+- **HIV/AIDS** prevalence is a percentage.
+- **Schooling** is in years of education.
+- **GDP** is transformed using log(GDP + 1) to reduce skewness.
+
+---
+
 ## Model Coefficients
 
 Below are the estimated coefficients of the model, including 95% confidence intervals:
@@ -40,3 +56,33 @@ Below are the estimated coefficients of the model, including 95% confidence inte
 - **Adult Mortality** and **HIV/AIDS** are strongly associated with *lower* life expectancy.
 - **Schooling**, **Income Composition**, and **GDP** are positively associated with *higher* life expectancy.
 - All predictors are statistically significant at p < 0.001.
+
+---
+
+## Coefficient Plot
+
+```{r}
+library(tidyverse)
+library(broom)
+
+# Refit model if not already done
+model <- lm(Life_expectancy ~ Adult_Mortality + Income_composition_of_resources +
+              HIV_AIDS + Schooling + log(GDP + 1), data = data)
+
+# Create tidy model with confidence intervals
+tidy_model <- tidy(model, conf.int = TRUE)
+
+# Plot coefficients
+tidy_model |>
+  filter(term != "(Intercept)") |>
+  ggplot(aes(x = estimate, y = fct_reorder(term, estimate))) +
+  geom_point(size = 3) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  labs(
+    title = "Model Coefficients for Predicting Life Expectancy",
+    subtitle = "95% Confidence Intervals shown",
+    x = "Estimate",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 16)
+```
