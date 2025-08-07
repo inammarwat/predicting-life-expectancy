@@ -95,6 +95,10 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./model.html"> 
+<span class="menu-text">Model</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./sources.html"> 
 <span class="menu-text">Sources</span></a>
   </li>  
@@ -113,8 +117,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -145,6 +155,19 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+  term                 estimate std.error statistic   p.value conf.low conf.high
+  &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)           51.2     0.570        89.7  0          50.0      52.3   
+2 Adult_Mortality       -0.0194  0.000974    -19.9  5.60e- 79  -0.0213   -0.0175
+3 Income_composition_…  10.8     0.851        12.7  3.03e- 35   9.13     12.5   
+4 `HIV/AIDS`            -0.444   0.0186      -23.9  1.46e-108  -0.480    -0.407 
+5 Schooling              0.986   0.0574       17.2  7.46e- 61   0.873     1.10  
+6 log(GDP + 1)           0.479   0.0681        7.03 2.92e- 12   0.345     0.612 </code></pre>
+</div>
+</div>
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -153,19 +176,15 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Life expectancy varies significantly across countries due to differences in health and socioeconomic conditions. I used a dataset compiled by the World Health Organization (WHO) and the United Nations Development Programme (UNDP), available on Kaggle, which includes health and economic indicators from 2000 to 2015 for over 190 countries. After cleaning and standardizing the data, I explored how health factors (such as disease prevalence and vaccination rates) and economic indicators (such as education and GDP) relate to life expectancy.</p>
-<p>I built a multiple linear regression model to predict life expectancy, measured in years, using predictors including mortality rates, disease prevalence, access to vaccines, income levels, and education. The analysis revealed that HIV/AIDS and adult mortality rates had the strongest negative impacts on life expectancy, while higher levels of schooling and income composition were positively associated with longer life expectancy.</p>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p><strong>How do health and socioeconomic factors influence life expectancy globally?</strong><br>
+I used data compiled by the World Health Organization and the United Nations Development Programme, covering health and socioeconomic indicators for over 190 countries from 2000 to 2015. After cleaning and standardizing the data, I focused on comparing the effect of economic resources, education levels, and disease prevalence on national life expectancy.<br>
+I built a multiple linear regression model to predict life expectancy (measured in years), using factors such as adult mortality, HIV/AIDS prevalence, years of schooling, and national income levels. The model showed that higher income composition increased life expectancy by <strong>+10.8 years</strong>, while HIV/AIDS prevalence and adult mortality had negative effects of <strong>−0.44</strong> and <strong>−0.02 years</strong>, respectively.<br>
+<strong>Income inequality and health interventions can shift life expectancy by more than a decade — and that gap may grow without investment in education and disease prevention.</strong></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
