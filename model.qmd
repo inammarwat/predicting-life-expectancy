@@ -29,7 +29,7 @@ Where:
 The estimated equation from the model is:
 
 $$
-\text{Life Expectancy} = 51.16 - 0.02 \cdot \text{Adult Mortality} + 10.80 \cdot \text{Income/Resources} - 0.44 \cdot \text{HIV/AIDS} + 0.99 \cdot \text{Schooling} + 0.48 \cdot \log(\text{GDP} + 1) + \epsilon
+\text{Life Expectancy} = 51.20 - 0.02 \cdot \text{Adult Mortality} + 10.80 \cdot \text{Income/Resources} - 0.44 \cdot \text{HIV/AIDS} + 0.99 \cdot \text{Schooling} + 0.48 \cdot \log(\text{GDP} + 1) + \epsilon
 $$
 
 - **Adult Mortality** is measured per 1,000 people.
